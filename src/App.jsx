@@ -6,9 +6,19 @@ export default function App() {
   );
 
   const [view, setView] = useState("dashboard");
+  
   const [search, setSearch] = useState("");
 
+  const [emailCount] = useState(12);
+
+  const [meetingCount] = useState(4);
+
+  const [opportunityCount] = useState(7);
+
+  const [unreadNotifications] = useState(3);
+
   const [agenda] = useState([
+    
     {
       id: 1,
       heure: "09:00",
@@ -25,6 +35,34 @@ export default function App() {
       titre: "Préparation devis"
     }
   ]);
+
+  const [emails] = useState([
+  {
+    id: 1,
+    subject: "Demande de devis Microsoft 365",
+    from: "client.xyz@entreprise.fr",
+    urgent: true,
+  },
+  {
+    id: 2,
+    subject: "Invitation Webinar IA",
+    from: "marketing@entreprise.fr",
+    urgent: false,
+  },
+]);
+
+const [teamsMeetings] = useState([
+  {
+    id: 1,
+    time: "10:00",
+    title: "Réunion Equipe Commerciale",
+  },
+  {
+    id: 2,
+    time: "15:30",
+    title: "Client XYZ",
+  },
+]);
 
   const [tasks, setTasks] = useState(() => {
     const saved = localStorage.getItem("tasks");
@@ -122,6 +160,50 @@ export default function App() {
     "Vendredi",
   ];
 
+  const notifications = [
+  "Démo Microsoft 365 à 10h00",
+  "Offre Client ABC demain",
+  "Réunion commerciale dans 30 min",
+  ];
+
+const opportunities = {
+  hot: 3,
+  warm: 4,
+  cold: 8,
+  amount: "125 000 €",
+};
+
+const dailyActions = [
+  "Préparer offre Client XYZ",
+  "Relancer prospect ABC",
+  "Finaliser démonstration Teams",
+  "Mettre à jour CRM",
+];
+
+const urgentTasks = tasks.filter(
+  (task) => task.priority === "Haute"
+);
+
+const assistantMessage = `
+Bonjour Pierre 👋
+
+📅 Réunions : ${meetingCount}
+
+📧 Emails non lus : ${emailCount}
+
+💰 Opportunités : ${opportunityCount}
+
+⚠️ Tâches prioritaires : ${urgentTasks.length}
+
+Objectif du jour :
+
+• Traiter les emails prioritaires
+• Finaliser les offres
+• Préparer les rendez-vous
+
+Temps estimé : 5h30
+`;
+
   return (
     <div style={{ padding: 20 }}>
       <h1>🚀 TaskHub Pro V7</h1>
@@ -213,6 +295,26 @@ export default function App() {
           marginBottom: 20,
         }}
       >
+        <div style={cardStyle}>
+          <h3>📅 Réunions</h3>
+          <h2>{meetingCount}</h2>
+        </div>
+
+        <div style={cardStyle}>
+          <h3>📧 Emails</h3>
+          <h2>{emailCount}</h2>
+        </div>
+
+        <div style={cardStyle}>
+          <h3>💰 Opportunités</h3>
+          <h2>{opportunityCount}</h2>
+        </div>
+
+        <div style={cardStyle}>
+          <h3>🔔 Alertes</h3>
+          <h2>{unreadNotifications}</h2>
+        </div>
+        
         <div style={cardStyle}>
           <h3>Tâches</h3>
           <h2>{total}</h2>
